@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../rust-esp32-osc-led"
+		}
+	],
+	"settings": {}
+}
