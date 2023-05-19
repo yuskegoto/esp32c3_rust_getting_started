@@ -1,5 +1,19 @@
-# Setting up
-- Set pass
+# What is this?
+- Getting start project for ESP32-C3 Rust.
+- This project is mainly referenced from Tai Hideaki san's [rust-esp32-osc-led](https://github.com/hideakitai/rust-esp32-osc-led.git) project.
+- For the instruction plase see [TDA's workshop notion page](https://www.notion.so/techdirector/Rust-a501b600bbc349a09112fe94d3f6291b)
+
+## Projects
+- button.rs
+    - Button input example
+- button_led.rs
+    - Serial LED example
+- connect_wifi.rs
+    - Wifi connect example
+- osc_send.rs
+    - OSC send example
+- main.rs
+    - OSC receive and led control
 
 ```bash
 export OSC_WIFI_SSID=LAB3
