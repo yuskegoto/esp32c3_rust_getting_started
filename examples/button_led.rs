@@ -1,5 +1,6 @@
 use anyhow::*;
 use log::*;
+use std::result::Result::Ok;
 
 use esp_idf_sys::*;
 use esp_idf_hal::prelude::*;
@@ -42,13 +43,26 @@ fn main()-> Result<()> {
                 val: 128,
             }))
             .take(1);
-            ws2812.write(pixels).unwrap();
+            // ws2812.write(pixels).unwrap();
+            let res = ws2812.write(pixels);
+            match res {
+                Ok(_)=> {
+                    info!("color changed");
+                },
+                Err(e) =>{
+                    error!("LED error: {:?}", e);
+                }
+            }
+            
         }
         else{
             // led.set_high()?;
             let pixels = std::iter::repeat(RGB { r: 0, g: 0, b: 0})
             .take(1);
-            ws2812.write(pixels).unwrap();
+            // ws2812.write(pixels).unwrap();
+            if let Err(e) = ws2812.write(pixels){
+                error!("LED error: {e}");
+            }
         }
 
         FreeRtos::delay_ms(100);
