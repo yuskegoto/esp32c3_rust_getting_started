@@ -1,26 +1,17 @@
 use anyhow::{bail, Result};
 use log::*;
 
-use std::thread::sleep;
 use std::env;
-use core::time::Duration;
-
 
 use esp_idf_sys::*;
 use esp_idf_hal::prelude::*;
-// use esp_idf_svc::eventloop::*;
-// use embedded_svc::wifi::{AuthMethod, ClientConfiguration, Configuration};
 use esp_idf_svc::wifi::{BlockingWifi, EspWifi};
 use esp_idf_svc::{eventloop::EspSystemEventLoop, nvs::EspDefaultNvsPartition};
 
-// use esp_idf_hal::delay::{Delay, FreeRtos};
-use esp_idf_hal::gpio::*;
+// use esp_idf_hal::gpio::*;
 use esp_idf_hal::peripherals::Peripherals;
 
-// use smart_leds::RGB8;
-use smart_leds::hsv::{hsv2rgb, Hsv};
-use smart_leds::SmartLedsWrite;
-use ws2812_esp32_rmt_driver::{LedPixelEsp32Rmt, RGB8};
+use ws2812_esp32_rmt_driver::{RGB8};
 
 use thingbuf::mpsc::StaticChannel;
 
@@ -31,9 +22,9 @@ mod osc;
 use led::Led;
 use osc::Osc;
 
-use rosc::encoder;
-use rosc::{OscMessage, OscPacket, OscType};
-use std::net::{SocketAddrV4, UdpSocket, Ipv4Addr};
+// use rosc::encoder;
+// use rosc::{OscMessage, OscPacket, OscType};
+// use std::net::{SocketAddrV4, UdpSocket, Ipv4Addr};
 
 
 const OSC_WIFI_SSID: &str = env!("OSC_WIFI_SSID");
@@ -54,7 +45,7 @@ fn main()-> Result<()> {
     
     let peripherals = Peripherals::take().unwrap();
 
-    let button = PinDriver::input(peripherals.pins.gpio9)?; // M5 Stamp C3U
+    // let button = PinDriver::input(peripherals.pins.gpio9)?; // M5 Stamp C3U
     // let button = PinDriver::input(peripherals.pins.gpio3)?; // M5 Stamp C3
     
     let nvs = EspDefaultNvsPartition::take()?;

@@ -19,12 +19,14 @@ use std::str::FromStr;
 
 const OSC_WIFI_SSID: &str = env!("OSC_WIFI_SSID");
 const OSC_WIFI_PASS: &str = env!("OSC_WIFI_PASS");
-const OSC_WIFI_RECV_PORT_STR: &str = env!("OSC_WIFI_RECV_PORT_STR");
-const OSC_WIFI_PONG_PORT_STR: &str = env!("OSC_WIFI_RECV_PONG_STR");
 
-const DEST_PORT: u16 = 5101;
-const SEND_PORT: u16 = 5100;
-const OSC_DEST_IP: &str = "192.168.2.100";
+// const SEND_PORT: u16 = 5100;
+const SEND_PORT_STR: &str = env!("OSC_WIFI_SEND_PORT_STR");
+
+// const DEST_PORT: u16 = 5101;
+const DEST_PORT_STR: &str = env!("OSC_WIFI_DEST_PORT_STR");
+// const OSC_DEST_IP: &str = "192.168.2.100";
+const OSC_DEST_IP: &str = env!("OSC_WIFI_DEST_IP");
 
 fn main()-> Result<()> {
     esp_idf_sys::link_patches();
@@ -59,8 +61,11 @@ fn main()-> Result<()> {
     let dest_ip = Ipv4Addr::from_str(OSC_DEST_IP)?;
     // let dest_ip = Ipv4Addr::new(192, 168, 2, 100);
 
-    let host_addr = SocketAddrV4::new(ip_info.ip, SEND_PORT);
-    let to_addr =  SocketAddrV4::new(dest_ip, DEST_PORT);
+    let send_port = SEND_PORT_STR.parse::<u16>().unwrap();
+    let dest_port = DEST_PORT_STR.parse::<u16>().unwrap();
+
+    let host_addr = SocketAddrV4::new(ip_info.ip, send_port);
+    let to_addr =  SocketAddrV4::new(dest_ip, dest_port);
     let sock = UdpSocket::bind(host_addr).unwrap();
 
     // switch view

@@ -23,6 +23,7 @@ fn main()-> Result<()> {
     let peripherals = Peripherals::take().unwrap();
     let button = PinDriver::input(peripherals.pins.gpio9)?; // M5 Stamp C3U
     // let button = PinDriver::input(peripherals.pins.gpio3)?; // M5 Stamp C3
+    // let mut led = PinDriver::output(peripherals.pins.gpio4)?;
     
     // Init serial LED pin
     const LED_PIN: u32 = 2;
@@ -34,6 +35,7 @@ fn main()-> Result<()> {
     loop {
         if button.is_low() {
             info!("high");
+            // led.set_low()?;
             let pixels = std::iter::repeat( hsv2rgb(Hsv {
                 hue: 0, 
                 sat: 255,
@@ -43,6 +45,7 @@ fn main()-> Result<()> {
             ws2812.write(pixels).unwrap();
         }
         else{
+            // led.set_high()?;
             let pixels = std::iter::repeat(RGB { r: 0, g: 0, b: 0})
             .take(1);
             ws2812.write(pixels).unwrap();
